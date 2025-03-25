@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans+JP:wght@100..900&display=swap");
+
+.viewPanel {
+    position: absolute;
+    width: 100vw;
+	bottom: 0;
+    left: 0;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    transition: bottom 0.3s ease;
+}
+
+
+.viewPanelBase {
+    position: absolute;
+    width: 100vw;
+	bottom: 0;
+    left: 0;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    background-color: rgba(20, 20, 20, 0.45);
+}
+
+.viewPanelTab {
+    position: absolute;
+    left: 50%;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    transform: translateX(-50%);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    background-color: rgba(20, 20, 20, 0.45);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.viewPanelTabTitle {
+    color: #FFFFFF;
+    display: block;
+    letter-spacing: 0.3rem;
+}
+
+.viewThumb {
+    cursor: pointer;
+    box-shadow: 0 0.72vh 1.08vh 0 rgba(22, 24, 26, 0.30);
+}
+
+.scrollArea {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1vh;
+    white-space: nowrap;
+    min-width: "100%";
+}

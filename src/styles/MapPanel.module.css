@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans+JP:wght@100..900&display=swap");
+
+.mapPanel {
+    position: absolute;
+    aspect-ratio: 1 / 1.15;
+	top: 0;
+    right: 0;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    transition: right 0.3s ease-out;
+}
+
+.mapBase {
+    position: absolute;
+    aspect-ratio: 1 / 1.15;
+	top: 0;
+    right: 0;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    background-color: rgba(20, 20, 20, 0.45);
+}
+
+.mapPanelTab {
+    position: absolute;
+    aspect-ratio: 1 / 6;
+	top: 0;
+    opacity: "1";
+    user-select: none;
+    z-index: 10;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    background-color: rgba(20, 20, 20, 0.45);
+    border-radius: 0.5rem 0 0 0.5rem;
+    -webkit-tap-highlight-color: transparent; /* モバイルのタップ時も消す */
+}
+
+.mapPanelTab:focus {
+    outline: none;
+}
+
+.mapPanelTab:focus-visible {
+    outline: none;
+}
+
+.mapImage {
+    display: block;
+    position: absolute;
+    aspect-ratio: 1 / 1.16;
+    z-index: 11;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mapArea {
+	display: block;
+    position: absolute;
+    aspect-ratio: 1 / 1.16;
+    z-index: 11;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.playerPoint {
+	position: absolute;
+	width: 5%;
+	aspect-ratio: 1 / 1;
+	left: 50%;
+	top: 50%;
+    z-index: 12;
+    transform: translate(-50%, -50%);
+	background-image: url("/images/player/icon.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.panelTabTitle {
+    display: block;
+    position: absolute;
+    top: 50%;
+    color: #FFFFFF;
+    transform: rotate(-90deg) translateX(-50%);
+    transform-origin: left top;
+    white-space: nowrap;
+    letter-spacing: 0.3rem;
+}

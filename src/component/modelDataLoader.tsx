@@ -50,7 +50,7 @@ export const Collider = (props: colliderDataProps) => {
                     const gltf = await loadModelWithRetry(colliderDataPath);
                     gltf.scene.traverse(object => {
                         if (object instanceof Mesh) {
-                            // lccの代わりにspriteや他のmeshとの見切れや隠れを表現するため、visibleではなくtransparentとopacityで透明にする
+                            // lccの代わりにspriteや他のmeshとの見切れや隠れを表現するため、visibleではなくtransparentとopacityで透明にするgit
                             object.material = new MeshBasicMaterial({
                                 color: 0xffffff,
                                 opacity: 0,
