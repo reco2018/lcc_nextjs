@@ -142,6 +142,5 @@ export const Model = (props: modelDataProps) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [glbRefFlg]);
-
     return model ? <primitive object={model} /> : null;
 };
