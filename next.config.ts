@@ -10,8 +10,8 @@ const nextConfig = {
   experimental: {
     //esmExternals: false,
   },
-  basePath: isProd ? '/next_test' : undefined, // 開発時は basePath を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
-  assetPrefix: isProd ? '/next_test' : undefined, // 開発時は assetPrefix を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
+  basePath: isProd ? '/biz.active-d.net' : undefined, // 開発時は basePath を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
+  assetPrefix: isProd ? '/biz.active-d.net' : undefined, // 開発時は assetPrefix を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
   trailingSlash: true,
   webpack: (config: webpack.Configuration) => {
     config.cache = {
