@@ -10,44 +10,12 @@ export interface viewPanelRefType {
 
 type viewPanelProps = {
     onClick: (data: ExtendedThumbnailData) => void;
+    thumbnails: ExtendedThumbnailData[];
 }
-
-const thumbnails: ExtendedThumbnailData[] = [
-    {
-        src: "/images/thumb/thumb_01.png",
-        id: 1,
-        position: [0, 1.25, 0], //
-        rotation: [225, 90],
-    },
-    {
-        src: "/images/thumb/thumb_02.png",
-        id: 2,
-        position: [4, 1.25, 6], 
-        rotation: [45, 90]
-    },
-    {
-        src: "/images/thumb/thumb_03.png",
-        id: 3,
-        position: [-4.75, 1.25, 4.5], 
-        rotation: [270, 90]
-    },
-    {
-        src: "/images/thumb/thumb_04.png",
-        id: 4,
-        position: [1.65, 1.22, -5.5], 
-        rotation: [180, 90]
-    },
-    {
-        src: "/images/thumb/thumb_05.png",
-        id: 5,
-        position: [5, 1.25, 0], 
-        rotation: [155, 90]
-    },
-];
 
 export const ViewPanel = (props: viewPanelProps) => {
 
-    const { onClick } = props;
+    const { onClick, thumbnails } = props;
 
     const [ view /*, viewVisible */] = useState<boolean>(true);
     const [isTabClicked, setIsTabClicked] = useState<boolean>(false);  // クリック状態を管理するステート

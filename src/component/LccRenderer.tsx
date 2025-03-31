@@ -7,11 +7,12 @@ import { LCCRender } from "@/lib/lcc-0.4.1.js";
 type lccProps = {
     dataPath: string;
     gpuAcceleration?: boolean;
+    onLoaded?: () => void;
 }
 
 // LCCデータのロードコンポーネント
 export const LccRenderer = (props: lccProps) => {
-    const { dataPath, gpuAcceleration } = props;
+    const { dataPath, gpuAcceleration, onLoaded } = props;
     const { scene, gl, camera, } = useThree();
     const lccObjectRef = useRef<unknown>(null);
     
@@ -32,12 +33,16 @@ export const LccRenderer = (props: lccProps) => {
                 mesh.rotation.z = Math.PI / 12; // 壁面とXZ軸の平行出し補正
                 mesh.position.x = 2.95; // ゼロ座標補正
                 mesh.position.z = 0.55; // ゼロ座標補正
+
+                if (onLoaded) {
+                    onLoaded(); //ロード完了を親コンポーネントへ送る
+                }
         },
             (percent: number) => {
                 console.log('Model loaded: ' + percent * 100 + '%'); // ファイルのロード進捗
             }
         );
-    }, [scene, gl, camera, dataPath, gpuAcceleration]);
+    }, [scene, gl, camera, dataPath, gpuAcceleration, onLoaded]);
     
     useFrame(() => {
         if (LCCRender.update) {
