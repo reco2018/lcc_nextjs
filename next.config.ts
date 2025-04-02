@@ -1,5 +1,4 @@
 import type webpack from 'webpack';
-const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
   output: 'export',
   reactStrictMode: false,
@@ -10,8 +9,8 @@ const nextConfig = {
   experimental: {
     //esmExternals: false,
   },
-  basePath: isProd ? '/biz.active-d.net' : undefined, // 開発時は basePath を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
-  assetPrefix: isProd ? '/biz.active-d.net' : undefined, // 開発時は assetPrefix を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH, // 開発時は basePath を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH, // 開発時は assetPrefix を無効化 '/next_test'の部分は</ + アップロード先フォルダ名>に書き換えてください。ドメイン部分は含めなくてOKです
   trailingSlash: true,
   webpack: (config: webpack.Configuration) => {
     config.cache = {

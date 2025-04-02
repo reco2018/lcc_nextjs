@@ -68,6 +68,9 @@ export default function Home() {
         [1.6, 1, -6.2]
     ];
 
+    const domain = process.env.NEXT_PUBLIC_DOMAIN;
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ? process.env.NEXT_PUBLIC_BASE_PATH : "";
+
     useEffect(() => {
         if (colliderLoaded && lccLoaded) {
             setFadeOut(false);
@@ -111,7 +114,7 @@ export default function Home() {
                 <Physics gravity={[0, -1.5, 0]} colliders={false} /*debug*/>
                     <Suspense fallback={<></>}>
                         {/* Colliderの読み込み完了時にhandleColliderLoadを呼ぶ */}
-                        <Collider colliderDataPath={"https://biz.active-d.net/next_test/data/gltf/2024_11_29_125713.gltf"} onLoaded={handleColliderLoad} rotation={[0, Math.PI / 12, 0]} position={[2.95, 0, 0.54]} glbRefFlg={true} />
+                        <Collider colliderDataPath={domain + basePath + "/data/gltf/2024_11_29_125713.gltf"} onLoaded={handleColliderLoad} rotation={[0, Math.PI / 12, 0]} position={[2.95, 0, 0.54]} glbRefFlg={true} />
                         <KeyboardControls map={[
                             { name: "forward", keys: ["KeyW", "ArrowUp"] },
                             { name: "backward", keys: ["KeyS", "ArrowDown"] },
@@ -127,7 +130,7 @@ export default function Home() {
                             <SpriteButton key={index} position={pos} imagePath="/images/spot/link.png" hoverImagePath="/images/spot/link_fcs.png" onClick={() => alert(`ボタン ${index + 1} 押した！`)} />
                         ))}
                         {/* LccRendererの読み込み完了時にhandleLccLoadを呼ぶ */}
-                        <LccRenderer dataPath="https://biz.active-d.net/next_test/data/2024-11-29-125713/meta.lcc" gpuAcceleration={true} onLoaded={handleLccLoad} />
+                        <LccRenderer dataPath={domain + basePath + "/data/2024-11-29-125713/meta.lcc"} gpuAcceleration={true} onLoaded={handleLccLoad} />
                     </Suspense>
                 </Physics>
 
