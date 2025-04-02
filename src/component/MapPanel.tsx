@@ -32,6 +32,7 @@ export const MapPanel = (props: mapPanelProps) => {
     // 実際のマップ座標をスケーリング
     const scaledX = (playerPos[0] - mapArea.x / 2) * scaleX;
     const scaledY = (playerPos[1] - mapArea.y / 2) * scaleY;
+    
     // ゼロ座標が50%なのでその分補正
     const correctedX = ((scaledX / mapWidth) * -100);
     const correctedY = ((scaledY / mapHeight) * -100);
