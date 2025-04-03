@@ -4,6 +4,8 @@ import { useFrame } from '@react-three/fiber';
 import { CameraControls, useKeyboardControls } from '@react-three/drei';
 import { CapsuleCollider, RapierRigidBody, RigidBody } from "@react-three/rapier";
 import { UserContext } from '@/component/UserProvider';
+import { useState } from "react";
+import { ThirdPerson } from "./ThirdPerson";
 
 type playerProps = {
     playerRigidBodyRef: RefObject<RapierRigidBody | null>;
@@ -34,17 +36,18 @@ export const Player = (props: playerProps) => {
 
     const MOVE_SPEED = 2;
     const { movValue, rotValue } = useContext(UserContext);
-    const [, getKeys ] = useKeyboardControls();
+    const [, getKeys] = useKeyboardControls();
     const isColliderLoadedRef = useRef(false);
     // playerRigidBodyRefのcurrentを追跡するためのuseRef
     const playerRigidBodyCurrent = useRef(playerRigidBodyRef.current);
     const initialRotationSet = useRef(false);  // 初期設定が行われたかを追跡
+    const [isMoving, setIsMoving] = useState<boolean>(false); // isMovingを取得
 
     useEffect(() => {
         if (cameraControlRef.current && !initialRotationSet.current) {
             const [azimuth, polar] = initialRotation;
-    
-            if ( cameraControlRef.current.azimuthAngle !== azimuth * Math.PI / 180 || cameraControlRef.current.polarAngle !== polar * Math.PI / 180 ) {
+
+            if (cameraControlRef.current.azimuthAngle !== azimuth * Math.PI / 180 || cameraControlRef.current.polarAngle !== polar * Math.PI / 180) {
                 cameraControlRef.current.azimuthAngle = azimuth * Math.PI / 180;
                 cameraControlRef.current.polarAngle = polar * Math.PI / 180;
                 // 初期化完了フラグを立てる
@@ -60,7 +63,7 @@ export const Player = (props: playerProps) => {
             playerRigidBodyCurrent.current = playerRigidBodyRef.current;
         }
     }, [playerRigidBodyRef]);
-    
+
     // コライダがロードされてからプレイヤーを動かす処理
     useEffect(() => {
         if (isColliderLoadedRef.current && playerRigidBodyRef.current) {
@@ -72,15 +75,15 @@ export const Player = (props: playerProps) => {
 
     useEffect(() => {
         if (playerRigidBodyRef.current) {
-          // playerRigidBodyRefが変わった場合に呼ばれる処理
-          console.log('RigidBodyRef updated');
+            // playerRigidBodyRefが変わった場合に呼ばれる処理
+            console.log('RigidBodyRef updated');
         }
     }, [playerRigidBodyRef]); // 参照のcurrentを依存関係に追加
-    
+
     useEffect(() => {
         if (playerRigidBodyRef.current) {
-          // playerRigidBodyRefが変わるタイミングで発火する処理
-          console.log('Player rigidbody initialized.');
+            // playerRigidBodyRefが変わるタイミングで発火する処理
+            console.log('Player rigidbody initialized.');
         }
     }, [playerRigidBodyRef]); // 依存関係配列にplayerRigidBodyRefを追加
 
@@ -90,10 +93,10 @@ export const Player = (props: playerProps) => {
         const velocity = new Vector3();
         const frontVector = new Vector3();
         const sideVector = new Vector3();
-        
+
         // CameraControlsが管理しているカメラを取得する
         const currentCamera = cameraControlRef.current?.camera;
-        
+
         if (playerRigidBodyRef.current) {
             const pos = playerRigidBodyRef.current.translation();
             const azimuthAngle = cameraControlRef.current?.azimuthAngle || 0;
@@ -112,19 +115,19 @@ export const Player = (props: playerProps) => {
             velocity.normalize();
         }
 
-        if ( forward ) {
+        if (forward) {
             frontVector.add(velocity.multiplyScalar(MOVE_SPEED));
         }
-        if ( backward ) {
+        if (backward) {
             frontVector.add(velocity.multiplyScalar(MOVE_SPEED * -1));
         }
 
-        if ( rotValue ) {
+        if (rotValue) {
             cameraControlRef.current?.rotate(rotValue * -0.01, 0, true);
         }
 
-        if( left || right ){
-            if ( left ) {
+        if (left || right) {
+            if (left) {
                 cameraControlRef.current?.rotate(DEG2RAD, 0, true);
             } else {
                 cameraControlRef.current?.rotate(DEG2RAD * -1, 0, true);
@@ -134,7 +137,7 @@ export const Player = (props: playerProps) => {
         if (forward || backward || left || right || movValue) {
             const currentRigidBody = playerRigidBodyRef.current;
             // currentRigidBodyがnullでないことを確認
-            if (currentRigidBody) {  
+            if (currentRigidBody) {
                 reflectVector(velocity, frontVector, sideVector, playerRigidBodyRef as RefObject<RapierRigidBody>);
             }
         }
@@ -144,7 +147,9 @@ export const Player = (props: playerProps) => {
         <RigidBody position={initialPosition} ref={playerRigidBodyRef} friction={0.3} mass={1} lockRotations colliders={false} enabledRotations={[false, false, false]}>
             <CameraControls ref={cameraControlRef} />
             {/* 物理コライダ */}
-            <CapsuleCollider args={[0.5, 0.25]}  position={[0, -0.70, 0]}/>
+            <CapsuleCollider args={[0.5, 0.25]} position={[0, -0.70, 0]} />
+            <ThirdPerson position={[0, -1.4, 0]} rotation={[0, cameraControlRef.current?.azimuthAngle + Math.PI]} isMoving={isMoving} />
         </RigidBody>
+
     );
 }
